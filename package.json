@@ -16,6 +16,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/raleway": "^4.5.0",
     "@fontsource/share-tech-mono": "^4.5.0",
     "bootstrap": "^5.1.3",
     "gatsby": "^4.3.0",

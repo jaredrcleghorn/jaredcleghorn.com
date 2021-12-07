@@ -1,7 +1,27 @@
+import { PageProps, graphql } from "gatsby"
 import React from "react"
-import { Card, Layout } from "../components"
+import { Card, Layout, RecentPostCard } from "../components"
 
-export default function Home() {
+type Edge = {
+  node: {
+    excerpt: string
+    frontmatter: {
+      date: string
+      title: string
+    }
+    id: number
+  }
+}
+
+interface HomeProps extends PageProps {
+  data: {
+    allMarkdownRemark: {
+      edges: Edge[]
+    }
+  }
+}
+
+export default function Home(props: HomeProps) {
   return (
     <Layout>
       <Card title="About Me">
@@ -12,6 +32,33 @@ export default function Home() {
           Libraries.
         </div>
       </Card>
+      <Card className="mt-3" title="Recent Posts">
+        {props.data.allMarkdownRemark.edges.map(({ node }) => (
+          <RecentPostCard
+            date={node.frontmatter.date}
+            excerpt={node.excerpt}
+            key={node.id}
+            title={node.frontmatter.title}
+          />
+        ))}
+      </Card>
     </Layout>
   )
 }
+
+export const query = graphql`
+  query {
+    allMarkdownRemark {
+      edges {
+        node {
+          excerpt
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            title
+          }
+          id
+        }
+      }
+    }
+  }
+`

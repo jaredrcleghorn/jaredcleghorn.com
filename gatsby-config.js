@@ -15,5 +15,9 @@ module.exports = {
         path: `${__dirname}/src/posts`,
       },
     },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: { excerpt_separator: `<!-- end -->` },
+    },
   ],
 }

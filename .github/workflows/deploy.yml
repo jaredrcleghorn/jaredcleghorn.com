@@ -1,0 +1,58 @@
+name: Deploy
+on: [push]
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+      - name: Install dependencies
+        run: npm i
+      - name: Check format
+        run: npm run format-check
+  check-type:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+      - name: Install dependencies
+        run: npm i
+      - name: Check type
+        run: npm run type-check
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+      - name: Install dependencies
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.0
+        with:
+          name: public
+          path: public
+  deploy:
+    needs: [check-format, check-type, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: public
+          path: public
+      - name: Deploy
+        run: |
+          mkdir ~/.ssh
+          echo 'jaredcleghorn.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILHZsHcMyUvjogFEEuf3eZLm2zh9kNKevwV2gD0nJIg9' > ~/.ssh/known_hosts
+          echo '${{ secrets.OPENSSH_PRIVATE_KEY }}' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -r public github@jaredcleghorn.com:~
+          ssh github@jaredcleghorn.com 'rm -rf /var/www/jaredcleghorn.com/* && mv public/* /var/www/jaredcleghorn.com && rm -r public'

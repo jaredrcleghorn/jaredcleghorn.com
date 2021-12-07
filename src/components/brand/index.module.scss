@@ -1,0 +1,22 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+#brand {
+  font-family: "Share Tech Mono";
+  font-size: 1.75rem;
+}
+
+#link {
+  &,
+  span {
+    transition: color 0.25s;
+  }
+
+  &:hover {
+    color: map-get($theme-colors, "danger") !important;
+
+    span {
+      color: white !important;
+    }
+  }
+}

@@ -5,6 +5,9 @@ import { Card, Layout, RecentPostCard } from "../components"
 type Edge = {
   node: {
     excerpt: string
+    fields: {
+      slug: string
+    }
     frontmatter: {
       date: string
       title: string
@@ -38,6 +41,7 @@ export default function Home(props: HomeProps) {
             date={node.frontmatter.date}
             excerpt={node.excerpt}
             key={node.id}
+            slug={node.fields.slug}
             title={node.frontmatter.title}
           />
         ))}
@@ -52,6 +56,9 @@ export const query = graphql`
       edges {
         node {
           excerpt
+          fields {
+            slug
+          }
           frontmatter {
             date(formatString: "MMMM D, YYYY")
             title

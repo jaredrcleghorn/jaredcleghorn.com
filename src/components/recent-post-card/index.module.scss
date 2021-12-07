@@ -1,0 +1,10 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+#link {
+  transition: color 0.25s;
+
+  &:hover {
+    color: $red-600 !important;
+  }
+}

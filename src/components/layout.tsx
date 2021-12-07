@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import { Container } from "react-bootstrap"
 import Footer from "./footer"
 import Header from "./header"
 
@@ -8,7 +9,7 @@ export default function Layout(props: LayoutProps) {
   return (
     <>
       <Header />
-      {props.children}
+      <Container className="bg-dark p-3">{props.children}</Container>
       <Footer />
     </>
   )

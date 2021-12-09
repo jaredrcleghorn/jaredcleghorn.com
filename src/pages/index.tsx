@@ -1,6 +1,6 @@
 import { PageProps, graphql } from "gatsby"
 import React from "react"
-import { Card, Layout, RecentPostCard } from "../components"
+import { Card, ContactForm, Layout, RecentPostCard } from "../components"
 
 type Edge = {
   node: {
@@ -45,6 +45,9 @@ export default function Home(props: HomeProps) {
             title={node.frontmatter.title}
           />
         ))}
+      </Card>
+      <Card className="mt-3" title="Contact Me">
+        <ContactForm className="mt-2" />
       </Card>
     </Layout>
   )

@@ -1,5 +1,6 @@
 import "@fontsource/raleway"
 import "@fontsource/share-tech-mono"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "katex/dist/katex.min.css"
 import "prismjs/themes/prism-tomorrow.css"
 import "./src/styles/global.css"

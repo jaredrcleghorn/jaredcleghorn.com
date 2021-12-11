@@ -3,16 +3,19 @@ title: "iOS DEP MDM Bypass"
 date: "2021-12-07"
 ---
 
-This post gives a procedure for bypassing automatic Mobile Device Management (MDM) enrollment due to
-Device Enrollment Program (DEP) registration on iOS. Normally, if an iOS device is registered with
-DEP, it is automatically enrolled in MDM during its initial setup, which installs a profile on the
-device. Schools and businesses use DEP MDM profiles to do things like automate configuration and add
-restrictions, and they are not removable through the Settings app<!-- end -->.
+This post gives a procedure for bypassing automatic Mobile Device Management
+(MDM) enrollment due to Device Enrollment Program (DEP) registration on iOS.
+Normally, if an iOS device is registered with DEP, it is automatically enrolled
+in MDM during its initial setup, which installs a profile on the device. Schools
+and businesses use DEP MDM profiles to do things like automate configuration and
+add restrictions, and they are not removable through the Settings
+app<!-- end -->.
 
-I have only tried this bypass on an iPhone 7 Plus running iOS 14.4, but it seems likely to work on
-any iOS device that you can jailbreak. [checkra1n][1] can jailbreak iPhone 5s through iPhone X on
-iOS 12 and up. Start by [restoring][2] the device. After the restore finishes, do not start setting
-up the device—immediately jailbreak it. On [Mac][3], you can install checkra1n using
+I have only tried this bypass on an iPhone 7 Plus running iOS 14.4, but it seems
+likely to work on any iOS device that you can jailbreak. [checkra1n][1] can
+jailbreak iPhone 5s through iPhone X on iOS 12 and up. Start by [restoring][2]
+the device. After the restore finishes, do not start setting up the
+device—immediately jailbreak it. On [Mac][3], you can install checkra1n using
 [Homebrew][4]. To install Homebrew, run
 
 ```shell
@@ -32,15 +35,17 @@ xattr -d com.apple.quarantine /Applications/checkra1n.app
 /Applications/checkra1n.app/Contents/MacOS/checkra1n
 ```
 
-Note that checkra1n does not seem to work with USB-C to Lightning cables. After the jailbreak
-finishes, you need to [SSH][5] into the device. To do this, you will need [iProxy][6], which can be
-installed via [libimobiledevice][7] using Homebrew by running
+Note that checkra1n does not seem to work with USB-C to Lightning cables. After
+the jailbreak finishes, you need to [SSH][5] into the device. To do this, you
+will need [iProxy][6], which can be installed via [libimobiledevice][7] using
+Homebrew by running
 
 ```shell
 brew install libimobiledevice
 ```
 
-Next, forward [TCP][8] port 2222 on your computer to port 44 on your iOS device by running
+Next, forward [TCP][8] port 2222 on your computer to port 44 on your iOS device
+by running
 
 ```shell
 iproxy 2222 44
@@ -71,14 +76,16 @@ cat > /private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configura
 EOF
 ```
 
-This writes a certain configuration file to your device that seems to trick it into thinking that it
-has already performed MDM enrollment during setup. Finally, [respring][9] the device by running
+This writes a certain configuration file to your device that seems to trick it
+into thinking that it has already performed MDM enrollment during setup.
+Finally, [respring][9] the device by running
 
 ```shell
 killall -9 SpringBoard
 ```
 
-You should now be able to set up the device without going through MDM enrollment.
+You should now be able to set up the device without going through MDM
+enrollment.
 
 Sources:
 

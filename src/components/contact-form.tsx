@@ -1,5 +1,5 @@
 import React, { FormEventHandler, useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import ContactModal from "./contact-modal"
 import FormGroup from "./form-group"
 
@@ -32,20 +32,26 @@ export default function ContactForm(props: ContactFormProps) {
 
   return (
     <Form className={props.className} onSubmit={handleSubmit}>
-      <FormGroup
-        label="Name"
-        placeholder="John Doe"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <FormGroup
-        className="mt-3"
-        label="Email"
-        placeholder="johndoe@example.com"
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+      <Row>
+        <Col md={6}>
+          <FormGroup
+            label="Name"
+            placeholder="John Doe"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </Col>
+        <Col md={6}>
+          <FormGroup
+            className="mt-3 mt-md-0"
+            label="Email"
+            placeholder="johndoe@example.com"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </Col>
+      </Row>
       <FormGroup
         className="mt-3"
         label="Subject"

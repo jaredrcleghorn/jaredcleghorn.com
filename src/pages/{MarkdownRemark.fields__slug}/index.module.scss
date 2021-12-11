@@ -1,7 +1,22 @@
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
 
-#div pre {
-  background-color: map-get($theme-colors, "dark");
-  padding: $spacer;
+#div {
+  pre,
+  :global(.katex-display) {
+    background-color: map-get($theme-colors, "dark");
+  }
+
+  pre {
+    padding: $spacer;
+  }
+
+  :global(.katex-display) {
+    overflow: scroll;
+
+    :global(.katex) {
+      display: inline-block;
+      margin: $spacer;
+    }
+  }
 }

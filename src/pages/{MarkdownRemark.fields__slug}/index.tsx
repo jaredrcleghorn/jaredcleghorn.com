@@ -22,9 +22,9 @@ export default function Post(props: PostProps) {
   return (
     <Layout>
       <Card title={frontmatter.title}>
-        <span className="text-muted">{frontmatter.date}</span>
+        <span className="mt-1 text-muted">{frontmatter.date}</span>
         <div
-          className="mt-1"
+          className="mt-2"
           dangerouslySetInnerHTML={{ __html: html }}
           id={styles.div}
         />
